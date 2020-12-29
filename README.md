@@ -1,15 +1,6 @@
-# IATI Decipher [![GitHub release](https://img.shields.io/github/release/pwyf/iati-decipher.svg)](https://github.com/pwyf/iati-decipher/releases/latest)
+# IATI Decipher
 
-Browser plugins for deciphering IATI organisation files.
-
-## Installation
-
- * [Chrome extension](https://chrome.google.com/webstore/detail/iati-organisation-file-vi/akignlamolglcjboilhajenkkkcnohjj)
- * [Firefox add-on](https://addons.mozilla.org/en-GB/firefox/addon/iati-decipher/)
-
-## Demo
-
-![Demo](demo.gif)
+Tool for deciphering IATI organisation files.
 
 ## Development
 
@@ -27,13 +18,6 @@ $ # watch for changes & create development build
 $ npm run watch
 ```
 
-Then:
-
- 1. In Chrome, visit chrome://extensions and enable developer mode.
- 2. Click “Load unpacked” and select the `dev` folder.
- 3. Visit any organisation dataset on the IATI registry. [E.g. this one.](https://www.iatiregistry.org/dataset/unitedstates-dosandusaid)
- 4. You might also want to consider installing [Extensions Reloader](https://chrome.google.com/webstore/detail/extensions-reloader/fimgfedafeadlieiabdeeaodndnlbhid). It’s very handy.
-
 ## Build for distribution
 
 1. First, be sure to bump the version number in `package.json`, `src/static/manifest.json`, and `CHANGELOG.md`.
@@ -46,13 +30,3 @@ Then:
    This should update the files in the `docs/demo` folder (which are in version control) and create an `extension.zip` file (which isn’t in version control).
 
 3. Commit all changes and push to github
-4. Create a new github release:
-
-   ```shell
-   npx gh-release
-   ```
-
-5. Finally, upload `extension.zip` to:
-
-    * [the chrome webstore](https://chrome.google.com/webstore/developer/dashboard/)
-    * [the firefox add-on store](https://addons.mozilla.org/en-GB/developers/addons)

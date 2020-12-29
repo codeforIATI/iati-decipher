@@ -11,7 +11,7 @@ const uglifyes = require('uglify-es')
 const composer = require('gulp-uglify/composer')
 var minify = composer(uglifyes, console)
 
-const outPath = gutil.env.env === 'prod' ? './docs/demo' : './dev'
+const outPath = gutil.env.env === 'prod' ? './docs' : './dev'
 
 const jsFiles = [
   './node_modules/jquery/dist/jquery.js',
@@ -48,18 +48,9 @@ gulp.task('clean', () => {
   return del(outPath + '/*')
 })
 
-gulp.task('zip', (done) => {
-  if (gutil.env.env === 'prod') {
-    return gulp.src(outPath + '/**')
-      .pipe(zip('extension.zip'))
-      .pipe(gulp.dest('.'))
-  }
-  return done()
-})
-
 gulp.task('build:codelists', (done) => {
   if (gutil.env.env === 'prod') {
-    var baseUrl = 'http://reference.iatistandard.org/203/codelists/downloads/clv2/json/en/'
+    var baseUrl = 'https://codelists.codeforiati.org/api/json/en/'
     codelists.map(function (codelist) {
       return request(baseUrl + codelist + '.json')
         .pipe(fs.createWriteStream('./src/static/json/' + codelist + '.json'))
@@ -109,8 +100,7 @@ gulp.task('build:assets', () => {
 gulp.task('build',
   gulp.series(
     gulp.parallel('clean', 'build:codelists'),
-    gulp.parallel('build:css', 'build:js', 'build:assets'),
-    'zip'))
+    gulp.parallel('build:css', 'build:js', 'build:assets')))
 
 gulp.task('watch', gulp.series(['build'], () => {
   gulp.watch('./src/**', gulp.parallel('build'))
