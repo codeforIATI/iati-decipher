@@ -1,0 +1,35 @@
+name: CI
+on:
+  push:
+    branch: main
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Get yarn cache directory path
+      id: yarn-cache-dir-path
+      run: echo "::set-output name=dir::$(yarn cache dir)"
+    - uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+    - name: Install node dependencies
+      run: |
+        npm install
+    - name: Run build
+      run: |
+        gulp
+    - name: Deploy to github pages 🚀
+      if: github.ref == 'refs/heads/main'
+      uses: JamesIves/github-pages-deploy-action@3.7.1
+      with:
+        GIT_CONFIG_NAME: Code for IATI bot
+        GIT_CONFIG_EMAIL: 57559326+codeforIATIbot@users.noreply.github.com
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: dev
+        CLEAN: true
