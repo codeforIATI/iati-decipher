@@ -11,7 +11,7 @@ const uglifyes = require('uglify-es')
 const composer = require('gulp-uglify/composer')
 var minify = composer(uglifyes, console)
 
-const outPath = gutil.env.env === 'prod' ? './docs' : './dev'
+const outPath = './docs'
 
 const jsFiles = [
   './node_modules/jquery/dist/jquery.js',
